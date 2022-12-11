@@ -377,8 +377,6 @@ void Graph :: Width()
     cout << endl << endl;
 }
 
-
-
 void Graph :: traverse(int uni, bool visited[])
 {
     visited[uni] = true;
@@ -446,4 +444,50 @@ void Graph :: Euler()
         else
             cout << "Граф имеет эйлеров цикл и эйлеров путь" << endl;
     }
+    cout << endl;
+}
+
+void Graph :: MinimalPath()
+{
+    if(AM == NULL)
+        FromRLtoAM();
+    queue<int> Queue;
+    stack<Edge> Edges;
+    Edge e;
+    int req = countVertex - 1;
+    int nodes[countVertex]; 
+    for (int i = 0; i < 7; i++) 
+        nodes[i] = 0;
+    Queue.push(0); 
+    while (!Queue.empty())
+    {
+        int node = Queue.front(); 
+        Queue.pop();
+        nodes[node] = 2; 
+        for (int j = 0; j < countVertex; j++)
+        {
+            if (AM[node][j] == 1 && nodes[j] == 0)
+            { 
+                Queue.push(j); 
+                nodes[j] = 1; 
+                e.begin = node; e.end = j;
+                Edges.push(e);
+                if (node == req)
+                    break;
+            }
+        }
+    }
+    cout << "Путь до вершины " << req + 1 << ": " << endl;
+    cout << req + 1;
+    while (!Edges.empty())
+    {
+        e = Edges.top();
+        Edges.pop();
+        if (e.end == req)
+        {
+            req = e.begin;
+            cout << " <- " << req + 1;
+        }
+    }
+    cout << endl;
 }

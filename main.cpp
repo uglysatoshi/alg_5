@@ -18,4 +18,5 @@ int main()
     graph.Width();
     graph.Dijkstra();
     graph.Euler();
+    graph.MinimalPath();
 }

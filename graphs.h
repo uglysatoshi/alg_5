@@ -17,7 +17,7 @@ struct Edge
         int begin;
         int end;
         int weight;
-        Edge(int newBegin, int newEnd, int newWeigth)
+        Edge(int newBegin = int(), int newEnd = int(), int newWeigth = int())
         {   
             begin = newBegin;
             end = newEnd;
@@ -57,6 +57,7 @@ class Graph
         bool isConnected();
         int isEulerian();
         void Euler();
+        void MinimalPath();
 };
 
 #endif
