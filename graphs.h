@@ -29,21 +29,21 @@ class Graph
 {
     private:
         int uni;
-        int countVertex; // vertexses counter
-        int countPath; // paths counter
-        int** PM; // path matrix
-        int** AM; // adjacency matrix
-        int** IM; // incidence matrix
-        queue <Edge> edge; // edge list
+        int countVertex; // количество 
+        int countPath; // Количество путей в графе
+        int** PM; // Матрица путей
+        int** AM; // Матрица смежности
+        int** IM; // Матрица инциденций
+        queue <Edge> edge; // Список ребер
     public:    
-        Graph(); // constructor
-        ~Graph(); // destructor
-        void FromRLtoPM(); // path matrix
-        void PrintPM(); // print path matrix
-        void FromRLtoAM(); // adjacency matrix
-        void PrintAM(); // Print adjacency matrix
-        void FromRLtoIM(); // incidence matrix
-        void PrintIM(); // Print incidence matrix
+        Graph(); // Констркутор
+        ~Graph(); // Деструктор 
+        void FromRLtoPM(); // Задание матрицы путей из списка ребер
+        void PrintPM(); // Вывод матрицы путей
+        void FromRLtoAM(); // Задание матрицы смежности из списка ребер
+        void PrintAM(); // Вывод матрицы смежности
+        void FromRLtoIM(); // Задание матрицы инциденций из списка ребер
+        void PrintIM(); // Вывод матрицы инциденций
         void PrintLL(); // Вывод списка смежности
         void PrintRL(); // Вывод списка граней
         void InputRL(); // Ввод списка граней

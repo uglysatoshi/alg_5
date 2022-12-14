@@ -43,6 +43,7 @@ void Graph :: InputRL()
         }
     }
     cout << endl;
+    
 }
 
 void Graph :: PrintRL()
@@ -456,7 +457,7 @@ void Graph :: MinimalPath()
     Edge e;
     int req = countVertex - 1;
     int nodes[countVertex]; 
-    for (int i = 0; i < 7; i++) 
+    for (int i = 0; i < countVertex; i++) 
         nodes[i] = 0;
     Queue.push(0); 
     while (!Queue.empty())
@@ -489,5 +490,5 @@ void Graph :: MinimalPath()
             cout << " <- " << req + 1;
         }
     }
-    cout << endl;
+    cout << endl << endl;
 }

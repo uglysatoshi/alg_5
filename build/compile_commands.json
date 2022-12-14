@@ -1,7 +1,7 @@
 [
 {
-  "directory": "/home/valery/projects/lb_5.1/build",
-  "command": "/usr/bin/g++ -g -o CMakeFiles/main.dir/main.cpp.o -c /home/valery/projects/lb_5.1/main.cpp",
-  "file": "/home/valery/projects/lb_5.1/main.cpp"
+  "directory": "/home/valery/projects/lb_5/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/main.dir/main.cpp.o -c /home/valery/projects/lb_5/main.cpp",
+  "file": "/home/valery/projects/lb_5/main.cpp"
 }
 ]
