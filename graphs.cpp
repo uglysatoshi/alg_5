@@ -1,5 +1,7 @@
 #include "graphs.h"
 
+
+// Конструктор графа
 Graph :: Graph()
 {
     AM = NULL;
@@ -10,17 +12,15 @@ Graph :: Graph()
     uni = 0;
 }
 
-Graph :: ~Graph()
-{
-    
-}
 
+// Функция вноса количества вершин и путей
 void Graph :: InputVertexPath()
 {
     cout << "Введите количество вершин графа: "; cin >> countVertex;
     countPath = countVertex * countVertex;
 }
 
+// Функция задания списка ребер
 void Graph :: InputRL()
 {
     int pathWeigth;
@@ -46,6 +46,7 @@ void Graph :: InputRL()
     
 }
 
+// Функиция вывода списка ребер
 void Graph :: PrintRL()
 {
     queue <Edge> cEdge = edge;
@@ -72,6 +73,7 @@ void Graph :: PrintRL()
     cout << endl;
 }
 
+// Функиция конвертирования из списка ребер в матрицу смежности
 void Graph :: FromRLtoAM()
 {
     queue <Edge> cEdge = edge;
@@ -95,6 +97,7 @@ void Graph :: FromRLtoAM()
     }
 }
 
+// Вывод матрицы смежности
 void Graph :: PrintAM()
 {
     cout << "Матрица смежности:" << endl;
@@ -109,6 +112,7 @@ void Graph :: PrintAM()
     cout << endl;
 }
 
+// Конвертация списка ребер в матрицу инциденций
 void Graph :: FromRLtoIM()
 {
     if (AM == NULL)
@@ -138,6 +142,7 @@ void Graph :: FromRLtoIM()
 
 }
 
+// Вывод матрицы инциденций
 void Graph :: PrintIM()
 {
     cout << "Матрица инцидентности:" << endl;
@@ -152,6 +157,7 @@ void Graph :: PrintIM()
     cout << endl;
 }
 
+// Конвертация из списка ребер в матрицу путей
 void Graph :: FromRLtoPM()
 {
     queue <Edge> cEdge = edge;
@@ -172,6 +178,7 @@ void Graph :: FromRLtoPM()
     }
 }
 
+// Вывод матрицы путей
 void Graph :: PrintPM()
 {
     cout << "Матрица путей:" << endl;
@@ -189,6 +196,7 @@ void Graph :: PrintPM()
     cout << endl;
 }
 
+// Вывод списка связи
 void Graph :: PrintLL()
 {
     queue <Edge> cEdge = edge;
@@ -209,6 +217,7 @@ void Graph :: PrintLL()
     cout << endl;
 }
 
+// Алгоритм Флойда
 void Graph :: Floyd()
 {
     if(PM == NULL)
@@ -220,12 +229,13 @@ void Graph :: Floyd()
         {
             for (int j = 0; j < countVertex; j++)
             {
-                PM[i][j] = min(PM[i][j], PM[i][k] + PM[k][j]);
+                PM[i][j] = min(PM[i][j], PM[i][k] + PM[k][j]); // Условие алгоритма
             }
         }
     }
-
-    cout << "Построение матрицы кратчайших путей Флойда-Уоршела: " << endl;
+    
+    // Ниже вывод алгоритма
+    cout << "Построение матрицы кратчайших путей Флойда-Уоршела: " << endl; 
     for(int i = 0; i < countVertex; i++)
     {
         for (int j = 0; j < countVertex; j++)
@@ -240,26 +250,25 @@ void Graph :: Floyd()
     cout << endl;
 }
 
+// Алгоритм Дейкстры
 void Graph :: Dijkstra()
 {
-    if(PM == NULL)
-        FromRLtoPM();
-    int *distance;
+    if(PM == NULL) // Если матрица путей отсутсвует
+        FromRLtoPM();// Массив для сохранения 
     int index, u;
-    bool *visited;
-    distance = new int [countVertex];
-    visited = new bool [countVertex];
+    int distance[countVertex]; // массив для хранения веса ребер
+    bool visited[countVertex]; // массив для маркировки посещеных вершин
     for (int i = 0; i < countVertex; i++) 
     {
-        distance[i] = INF; visited[i]=false;
+        distance[i] = INF; visited[i]=false; 
     }
-    distance[0] = 0;
+    distance[0] = 0; 
     for (int j = 0; j < countVertex - 1; j++) 
     {
         int min = INF;
         for (int i = 0; i < countVertex; i++)
         {
-            if (!visited[i] && distance[i] <= min)
+            if (!visited[i] && distance[i] <= min) 
             {
                 min = distance[i];
                 index = i;
@@ -269,6 +278,11 @@ void Graph :: Dijkstra()
         visited[u] = true;
         for (int i = 0; i < countVertex; i++)
         {
+            // Главное условия: 
+            // 1) Вершина не была посещена
+            // 2) Путь не равен бесконечности
+            // 3) Путь больше нуля
+            // 4) Путь сохраненный ранее должен быть больше суммы данного пути и прошлого
             if (!visited[i] && PM[u][i] && distance[u] != INF && distance[u] + PM[u][i] < distance[i])
                 distance[i] = distance[u]+ PM[u][i];
         }
@@ -282,6 +296,7 @@ void Graph :: Dijkstra()
     cout << endl << endl;
 }
 
+// Алгоритм Крускала/Прима
 void Graph :: Prim_Kruskal()
 {
     if(PM == NULL)
@@ -289,9 +304,9 @@ void Graph :: Prim_Kruskal()
 
     cout << "Построение каркаса минимальной стоимости методом Прима/Крускала: " << endl;
     int no_edge = 0;
-    int selected[countVertex];
-    memset(selected, false, sizeof (selected));
-    selected[0] = true;
+    int selected[countVertex]; //Массив для маркировки посещенных вершин
+    memset(selected, false, sizeof (selected)); // Заполняем false
+    selected[0] = true; // Проставляем первую вершину как посещенную
     int x, y;           
 
     cout << "Ребро : Вес" << endl;
@@ -301,15 +316,15 @@ void Graph :: Prim_Kruskal()
         x = 0; y = 0;
         for (int i = 0; i < countVertex; i++)
         {
-            if (selected[i])
+            if (selected[i]) // Если вершина была посещена
             {
                 for (int j = 0; j < countVertex; j++) 
                 {
-                    if (!selected[j] && PM[i][j]) 
+                    if (!selected[j] && PM[i][j])  // Если вершина не посещена и путь больше нуля
                     { 
-                        if (min > PM[i][j]) 
+                        if (min > PM[i][j]) // Если путь меньше бесконечности
                         {
-                            min = PM[i][j];
+                            min = PM[i][j]; 
                             x = i;
                             y = j;
                         }
@@ -318,12 +333,13 @@ void Graph :: Prim_Kruskal()
             }
         }
         cout << x + 1 <<  " - " << y + 1 << " :  " << PM[x][y] << endl;
-        selected[y] = true;
+        selected[y] = true; // проставляем вершину посещенной
         no_edge++;
     }
     cout << endl;
 }
 
+// Функция прохода в глубину
 void Graph :: Depth()
 {
     if(AM == NULL)
@@ -342,9 +358,9 @@ void Graph :: Depth()
         if (nodes[node] == 2) 
             continue;   
         nodes[node] = 2; 
-        for (int j = countVertex - 1; j >= 0; j--)
+        for (int j = countVertex - 1; j >= 0; j--) // обратный обход по матрице
         {  
-            if (AM[node][j] == 1 && nodes[j] != 2)
+            if (AM[node][j] == 1 && nodes[j] != 2) // Если путь существует
             { 
                 Stack.push(j); 
                 nodes[j] = 1; 
@@ -355,6 +371,7 @@ void Graph :: Depth()
     cout << endl << endl;
 }
 
+// Функиция прохода в ширину
 void Graph :: Width()
 {
     if(AM == NULL)
@@ -384,6 +401,7 @@ void Graph :: Width()
     cout << endl << endl;
 }
 
+// Рекурсивная функция-условие для проверки на сходимость
 void Graph :: traverse(int uni, bool visited[])
 {
     visited[uni] = true;
@@ -397,6 +415,7 @@ void Graph :: traverse(int uni, bool visited[])
     }
 }
 
+// Функция для проверки на сходимость
 bool Graph :: isConnected()
 {
     bool *vis = new bool[countVertex];
@@ -415,6 +434,7 @@ bool Graph :: isConnected()
     return true;
 }
 
+// Фунция проверки на Эйлеровость
 int Graph :: isEulerian()
 {
     if(AM == NULL)
@@ -439,6 +459,7 @@ int Graph :: isEulerian()
     return (oddDegree)?1:2;
 }
 
+// Вывод функции проверки на Эйлеровость
 void Graph :: Euler()
 {
     int euler = isEulerian();
@@ -454,6 +475,7 @@ void Graph :: Euler()
     cout << endl;
 }
 
+// Функция поиска минимального пути
 void Graph :: MinimalPath()
 {
     if(AM == NULL)

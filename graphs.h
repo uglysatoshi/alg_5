@@ -38,7 +38,6 @@ class Graph
         queue <Edge> edge; // Список ребер
     public:    
         Graph(); // Констркутор
-        ~Graph(); // Деструктор 
         void FromRLtoPM(); // Задание матрицы путей из списка ребер
         void PrintPM(); // Вывод матрицы путей
         void FromRLtoAM(); // Задание матрицы смежности из списка ребер
