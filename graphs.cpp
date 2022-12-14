@@ -242,32 +242,38 @@ void Graph :: Floyd()
 
 void Graph :: Dijkstra()
 {
-    int *distance, count, index, i, u;
+    if(PM == NULL)
+        FromRLtoPM();
+    int *distance;
+    int index, u;
     bool *visited;
     distance = new int [countVertex];
     visited = new bool [countVertex];
-    for (i=0; i < countVertex; i++) 
+    for (int i = 0; i < countVertex; i++) 
     {
-         distance[i] = 101; visited[i]=false;
+        distance[i] = INF; visited[i]=false;
     }
     distance[0] = 0;
-    for (count = 0; count < countVertex - 1; count++) 
+    for (int j = 0; j < countVertex - 1; j++) 
     {
-        int min = 101;
-        for (i=0; i< countVertex; i++)
+        int min = INF;
+        for (int i = 0; i < countVertex; i++)
+        {
             if (!visited[i] && distance[i] <= min)
             {
                 min = distance[i];
-                index=i;
+                index = i;
             }
-            u = index;
-        visited[u]=true;
-        for (i=0; i < countVertex; i++)
+        }
+        u = index;
+        visited[u] = true;
+        for (int i = 0; i < countVertex; i++)
         {
-            if (!visited[i] && PM[u][i] && distance[u] != 101 && distance[u] + PM[u][i] < distance[i])
-                distance[i]=distance[u]+ PM[u][i];
+            if (!visited[i] && PM[u][i] && distance[u] != INF && distance[u] + PM[u][i] < distance[i])
+                distance[i] = distance[u]+ PM[u][i];
         }
     }
+
     cout << "Кратчайшие пути по алгоритму Дейкстры: " << endl;
     for(int i = 0; i < countVertex; i++)
     {
@@ -281,7 +287,7 @@ void Graph :: Prim_Kruskal()
     if(PM == NULL)
         FromRLtoPM();
 
-    cout << "Построение каркаса минимальной стоимости методом Прима: " << endl;
+    cout << "Построение каркаса минимальной стоимости методом Прима/Крускала: " << endl;
     int no_edge = 0;
     int selected[countVertex];
     memset(selected, false, sizeof (selected));
